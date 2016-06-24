@@ -1470,6 +1470,7 @@ class FWPreprocess(Scanner):
             (srcs_ip6 and not dsts_ip6) or 
             (dsts_ip6 and not srcs_ip6)
         ):
+            # TODO Make it possible to use groups with both v4 and v6 addresses
             self.log_error("Cannot mix IPv4 and IPv6 source and destination", rule.lineno)
         lines_ip4 = []
         lines_ip6 = []
