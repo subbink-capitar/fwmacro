@@ -1458,12 +1458,20 @@ class FWPreprocess(Scanner):
         dsts_ip4, dsts_ip6 = self.resolve_ip(rule.destinations, rule)
         if not srcs_ip4 and dsts_ip4:
             dsts_ip4 = self.purge_default(dsts_ip4)
+            #dsts_ip4 = []
+            #self.log_warning("Ignoring dest IPv4", rule.lineno)
         if srcs_ip4 and not dsts_ip4:
             srcs_ip4 = self.purge_default(srcs_ip4)
+            #srcs_ip4 = []
+            #self.log_warning("Ignoring src IPv4", rule.lineno)
         if not srcs_ip6 and dsts_ip6:
             dsts_ip6 = self.purge_default(dsts_ip6)
+            #dsts_ip6 = []
+            #self.log_warning("Ignoring dest IPv6", rule.lineno)
         if srcs_ip6 and not dsts_ip6:
             srcs_ip6 = self.purge_default(srcs_ip6)
+            #srcs_ip6 = []
+            #self.log_warning("Ignoring src IPv6", rule.lineno)
         if (
             (srcs_ip4 and not dsts_ip4) or 
             (dsts_ip4 and not srcs_ip4) or 
