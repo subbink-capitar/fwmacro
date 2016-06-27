@@ -1532,29 +1532,15 @@ class FWPreprocess(Scanner):
         dsts_ip4, dsts_ip6 = self.resolve_ip(rule.destinations, rule)
         if not srcs_ip4 and dsts_ip4:
             dsts_ip4 = self.purge_default(dsts_ip4)
-            #dsts_ip4 = []
-            #self.log_warning("Ignoring dest IPv4", rule.lineno)
         if srcs_ip4 and not dsts_ip4:
             srcs_ip4 = self.purge_default(srcs_ip4)
-            #srcs_ip4 = []
-            #self.log_warning("Ignoring src IPv4", rule.lineno)
         if not srcs_ip6 and dsts_ip6:
             dsts_ip6 = self.purge_default(dsts_ip6)
-            #dsts_ip6 = []
-            #self.log_warning("Ignoring dest IPv6", rule.lineno)
         if srcs_ip6 and not dsts_ip6:
             srcs_ip6 = self.purge_default(srcs_ip6)
-            #srcs_ip6 = []
-            #self.log_warning("Ignoring src IPv6", rule.lineno)
-        if (
-            (srcs_ip4 and not dsts_ip4) or
-            (dsts_ip4 and not srcs_ip4) or
-            (srcs_ip6 and not dsts_ip6) or
-            (dsts_ip6 and not srcs_ip6)
-        ):
-            # TODO Make it possible to use groups with both v4 and v6 addresses
-            self.log_error(
-                "Cannot mix IPv4 and IPv6 source and destination", rule.lineno)
+        # Don't check if v4 and v6 both have source and destination, but silent
+        # ignore if they haven't
+
         lines_ip4 = []
         lines_ip6 = []
         line_ipv4 = []
